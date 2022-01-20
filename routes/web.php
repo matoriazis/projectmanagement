@@ -14,11 +14,6 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['access.admin'])->prefix('admin')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');

@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function admin(Request $request) {
         //View dashboard admin
-        return 'view dashboard admin';
+        return view('admin/index');
     }
 
     public function client(Request $request) {

@@ -15,6 +15,21 @@ class ClientController extends Controller
     {
         return view('admin/client/index');
     }
+    public function developer()
+    {
+        return view('client/developer/index');
+    }
+
+    public function ticket()
+    {
+        return view('client/ticket/index');
+    }
+    
+    public function report()
+    {
+        return view('client/report/index');
+    }
+
 
     /**
      * Show the form for creating a new resource.

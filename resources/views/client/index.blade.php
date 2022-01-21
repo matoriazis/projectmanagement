@@ -1,7 +1,7 @@
 @extends('../templates/layout')
 @section('content')
 <div style="padding: 24px">
-  <h2 style="padding: 24px">Dashboard Admin</h2>
+  <h2>Dashboard Client</h2>
   <div class="row">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
       <div class="card">
@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Developer</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Tikcket In Progress</p>
                 <h5 class="font-weight-bolder mb-0">
                   3
                 </h5>
@@ -17,7 +17,7 @@
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="ni ni-html5 text-lg opacity-10" aria-hidden="true"></i>
+                <i class="ni ni-watch-time text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Client</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Ticket To Do</p>
                 <h5 class="font-weight-bolder mb-0">
                   2
                 </h5>
@@ -38,7 +38,7 @@
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
+                <i class="ni ni-bullet-list-67 text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
           <div class="row">
             <div class="col-8">
               <div class="numbers">
-                <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Project</p>
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Ticket Done</p>
                 <h5 class="font-weight-bolder mb-0">
                   10
                 </h5>
@@ -59,7 +59,7 @@
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                <i class="ni ni-archive-2 text-lg opacity-10" aria-hidden="true"></i>
+                <i class="ni ni-check-bold text-lg opacity-10" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -67,9 +67,8 @@
       </div>
     </div>
   </div>
-  
+
   <div class="card col-md-9 mt-4">
-    <h6 style="padding: 10px 0 0 15px">List Tiket Project Simak</h6>
     <div class="table-responsive">
       <table class="table align-items-center mb-0">
         <thead>
@@ -93,6 +92,12 @@
                 <span class="text-dark text-xs">working</span>
               </span>
             </td>
+  
+            {{-- <td class="align-middle">
+              <button class="btn btn-link text-secondary mb-0">
+                <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
+              </button>
+            </td> --}}
           </tr>
           <tr>
             <td>
@@ -108,75 +113,16 @@
                 <span class="text-dark text-xs">To Do</span>
               </span>
             </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="d-flex px-2">
-                <div class="my-auto">
-                  <h6 class="mb-0 text-xs">BE API Siswa</h6>
-                </div>
-              </div>
-            </td>
-            <td>
-              <span class="badge badge-dot me-4">
-                <i class="bg-info"></i>
-                <span class="text-dark text-xs">In Progress</span>
-              </span>
-            </td>
+  
+            {{-- <td class="align-middle">
+              <button class="btn btn-link text-secondary mb-0">
+                <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
+              </button>
+            </td> --}}
           </tr>
         </tbody>
       </table>
     </div>
     </div>
-  </div>
-
-  <div class="card col-md-8 mt-2" style="margin: 24px; padding: 10px;">
-    <h6 style="padding: 10px 0 0 15px">List New Client</h6>
-    <div class="table-responsive">
-      <table class="table align-items-center mb-0">
-        <thead>
-          <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Client</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Perusahaan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="d-flex px-2">
-                <div class="my-auto">
-                  <h6 class="mb-0 text-xs">Rizal</h6>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex px-2">
-                <div class="my-auto">
-                  <h6 class="mb-0 text-xs">PT HASABI</h6>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="d-flex px-2">
-                <div class="my-auto">
-                  <h6 class="mb-0 text-xs">Mira</h6>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex px-2">
-                <div class="my-auto">
-                  <h6 class="mb-0 text-xs">PT Agate</h6>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    </div>
-  </div>
 </div>
 @endsection

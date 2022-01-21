@@ -32,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['access.client'])->prefix('client')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'client'])->name('client.dashboard');
+        Route::get('/ticket', [ClientController::class, 'ticket'])->name('client.ticket.index');
+        Route::get('/developer', [ClientController::class, 'developer'])->name('client.developer.index');
+        Route::get('/report', [ClientController::class, 'report'])->name('client.report.index');
     });
     Route::middleware(['access.developer'])->group(function() {
         Route::get('/', [DashboardController::class, 'developer'])->name('developer.dashboard');

@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
     public function client(Request $request) {
         //View dashboard client
-        return 'view dashboard client';
+        return view('client/index');
     }
 
     public function developer(Request $request) {

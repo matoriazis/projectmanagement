@@ -16,6 +16,14 @@ class DeveloperController extends Controller
         return view('admin/developer/index');
     }
 
+    public function ticket()
+    {
+        return view('developers/ticket/index');
+    }
+    public function history()
+    {
+        return view('developers/history/index');
+    }
     /**
      * Show the form for creating a new resource.
      *

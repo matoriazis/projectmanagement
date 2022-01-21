@@ -18,6 +18,6 @@ class DashboardController extends Controller
 
     public function developer(Request $request) {
         //View dashboard developer
-        return 'view dashboard developer';
+        return view('developers/index');
     }
 }

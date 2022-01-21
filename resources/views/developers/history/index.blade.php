@@ -7,9 +7,8 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">List Developer</h5>
+                            <h5 class="mb-0">Riwayat Project</h5>
                         </div>
-                        <a href="{{ route('admin.developer.editor') }}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New Developer</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -18,24 +17,14 @@
                             <table id="datatable1">
                                 <thead>
                                     <th>No</th>
-                                    <th>Nama</th>
+                                    <th>Nama Project</th>
                                     <th>Bahasa Pemrograman</th>
-                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>Aqil Almuhtadi</td>
-                                        <td>Golang</td>
-                                        <td>
-                                            <a href="#" class="mx-3" data-bs-toggle="tooltip"
-                                            data-bs-original-title="Edit user">
-                                                <i class="fas fa-user-edit text-secondary"></i>
-                                            </a>
-                                            <span>
-                                                <i class="cursor-pointer fas fa-trash text-secondary"></i>
-                                            </span>
-                                        </td>
+                                        <td>Simak</td>
+                                        <td>React Js</td>
                                     </tr>
                                 </tbody>
                             </table>

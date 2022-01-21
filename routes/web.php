@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['access.developer'])->group(function() {
         Route::get('/', [DashboardController::class, 'developer'])->name('developer.dashboard');
+        Route::get('/ticket', [DeveloperController::class, 'ticket'])->name('developer.ticket.index');
+        Route::get('/history', [DeveloperController::class, 'history'])->name('developer.history.index');
     });
 });
 

@@ -184,7 +184,6 @@
                 margin: 0px 15px
             }
         }
-
     </style>
     <!-- Styles -->
 </head>

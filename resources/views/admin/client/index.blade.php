@@ -19,14 +19,14 @@
                                 <thead>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Jenis Project</th>
+                                    <th>Perusahaan</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>ilyas</td>
-                                        <td>apa</td>
+                                        <td>Azis Matori</td>
+                                        <td>PT Hasabi</td>
                                         <td>
                                             <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                             data-bs-original-title="Edit user">

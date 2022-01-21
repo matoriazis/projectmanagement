@@ -32,9 +32,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
+                            <label for="user-name" class="form-control-label">Nama Project</label>
                             <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                <input wire:model="user.name" class="form-control" type="text" placeholder="Name"
+                                <input wire:model="user.name" class="form-control" type="text" placeholder="Project XX"
                                     id="user-name">
                             </div>
                             @error('user.name') <div class="text-danger">{{ $message }}</div> @enderror
@@ -42,42 +42,50 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
-                            <div class="@error('user.email')border border-danger rounded-3 @enderror">
-                                <input wire:model="user.email" class="form-control" type="email"
-                                    placeholder="@example.com" id="user-email">
-                            </div>
-                            @error('user.email') <div class="text-danger">{{ $message }}</div> @enderror
+                            <label for="exampleFormControlSelect1">Pilih Client</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                              <option>Hasabi</option>
+                              <option>Javascript</option>
+                              <option>Java</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
-                            <div class="@error('user.phone')border border-danger rounded-3 @enderror">
-                                <input wire:model="user.phone" class="form-control" type="tel"
-                                    placeholder="40770888444" id="phone">
+                            <label for="user.location" class="form-control-label">Tanggal Mulai</label>
+                            <div class="@error('user.location') border border-danger rounded-3 @enderror">
+                                <input wire:model="user.location" class="form-control" type="date" id="name">
                             </div>
-                            @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
+                            @error('user.location') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
+                            <label for="user.location" class="form-control-label">Tanggal Selesai</label>
                             <div class="@error('user.location') border border-danger rounded-3 @enderror">
-                                <input wire:model="user.location" class="form-control" type="text"
-                                    placeholder="Location" id="name">
+                                <input wire:model="user.location" class="form-control" type="date" id="name">
                             </div>
                             @error('user.location') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Pilih Bahasa Pemrograman</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>PHP</option>
+                          <option>Javascript</option>
+                          <option>Java</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label for="about">{{ 'About Me' }}</label>
+                    <label for="about">Tech Stack</label>
                     <div class="@error('user.about')border border-danger rounded-3 @enderror">
                         <textarea wire:model="user.about" class="form-control" id="about" rows="3"
-                            placeholder="Say something about yourself"></textarea>
+                            placeholder="Tech Stack"></textarea>
                     </div>
                     @error('user.about') <div class="text-danger">{{ $message }}</div> @enderror
                 </div>

@@ -18,15 +18,15 @@
                             <table id="datatable1">
                                 <thead>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Jenis Project</th>
+                                    <th>Nama Tiket</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>ilyas</td>
-                                        <td>apa</td>
+                                        <td>API Guru</td>
+                                        <td>In Progress</td>
                                         <td>
                                             <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                             data-bs-original-title="Edit user">

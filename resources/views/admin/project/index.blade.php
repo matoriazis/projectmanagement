@@ -18,15 +18,17 @@
                             <table id="datatable1">
                                 <thead>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Jenis Project</th>
+                                    <th>Nama Project</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Tanggal Selesai</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>ilyas</td>
-                                        <td>apa</td>
+                                        <td>Simak</td>
+                                        <td>2 Januari 2021</td>
+                                        <td>2 Januari 2022</td>
                                         <td>
                                             <a href="#" class="mx-3" data-bs-toggle="tooltip"
                                             data-bs-original-title="Edit user">

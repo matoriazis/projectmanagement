@@ -23,12 +23,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
         Route::get('/tickets', [TicketController::class, 'index'])->name('admin.ticket.index');
         Route::get('/tickets/create', [TicketController::class, 'create'])->name('admin.ticket.editor');
+        Route::post('/tickets/create', [TicketController::class, 'store'])->name('admin.ticket.editor.store');
+
         Route::get('/project', [ProjectController::class, 'index'])->name('admin.project.index');
         Route::get('/project/create', [ProjectController::class, 'create'])->name('admin.project.editor');
+        Route::post('/project/create', [ProjectController::class, 'store'])->name('admin.project.editor.create');
+        Route::get('/project/update-status/{id}', [ProjectController::class, 'markAsDone'])->name('admin.project.status.update');
+
         Route::get('/developer', [DeveloperController::class, 'index'])->name('admin.developer.index');
         Route::get('/developer/create', [DeveloperController::class, 'create'])->name('admin.developer.editor');
+        Route::post('/developer/create', [DeveloperController::class, 'store'])->name('admin.developer.editor.create');
+
         Route::get('/client', [ClientController::class, 'index'])->name('admin.client.index');
         Route::get('/client/create', [ClientController::class, 'create'])->name('admin.client.editor');
+        Route::post('/client/create', [ClientController::class, 'store'])->name('admin.client.editor.post');
+        Route::get('/client/delete/{id}', [ClientController::class, 'destroy'])->name('admin.client.delete');
     });
     Route::middleware(['access.client'])->prefix('client')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'client'])->name('client.dashboard');

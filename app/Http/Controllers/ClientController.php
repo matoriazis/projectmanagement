@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Client;
+use App\Models\Ticket;
+use App\Models\Project;
+use App\Models\User;
+
 class ClientController extends Controller
 {
     /**
@@ -13,7 +18,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('admin/client/index');
+        $client = Client::orderBy('fullname', 'ASC')->get();
+
+        $this->data['clients'] = $client;
+
+        return view('admin/client/index', $this->data);
     }
     public function developer()
     {
@@ -49,51 +58,38 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $clientParam = $request->except(['password', '_token']);
+        $userParam = [
+            'name' => $request->fullname,
+            'password' => \Hash::make($request->password),
+            'email' => $request->email,
+            'role' => 'client'
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $user = User::create($userParam);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if($user) {
+            $clientParam['user_id'] = $user->id;
+            $client = Client::create($clientParam);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+            if($client) {
+                return redirect(route('admin.client.index'))->with('success', 'Berhasil manambahkan client baru!');
+            }
+        }
+        
+        return redirect(route('admin.client.index'))->with('failed', 'Gagal manambahkan client baru!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        $client = Client::find($id);
+        
+        if($client) {
+            $user = User::find($client->user_id);
+            $user->delete();
+            $client->delete();
+            return redirect(route('admin.client.index'))->with('failed', 'Berhasil menghapus data client!');
+        }
+        return redirect(route('admin.client.index'))->with('failed', 'Gagal menghapus data client!');
     }
 }

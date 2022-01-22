@@ -427,9 +427,9 @@
                             </a>
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">
-                            <a class="nav-link text-body p-0" title="Logout"
-                                onclick="return confirm('Yakin ingin keluar?')" href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
+                            <a class="nav-link text-body p-0" title="Logout" href="{{ route('logout') }}" 
+                            onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
                                 <i class="fa fa-sign-out"></i>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

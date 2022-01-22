@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ticket;
+use App\Models\Project;
+use App\Models\Developer;
 
 class TicketController extends Controller
 {
@@ -13,7 +16,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('admin/ticket/index');
+        $tickets = Ticket::with('assign', 'user')->orderBy('title', 'ASC')->get();
+        $this->data['tickets'] = $tickets;
+        return view('admin/ticket/index', $this->data);
     }
 
     /**
@@ -23,7 +28,9 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('admin/ticket/editor');
+        $projects = Project::where('status', 'Aktif')->orderBy('name', 'ASC')->get();
+        $this->data['projects'] = $projects;
+        return view('admin/ticket/editor', $this->data);
     }
 
     /**
@@ -34,7 +41,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $param = $request->except(['_token']);
+        $param['created_id'] = \Auth::user()->id;
+
+        $ticket = Ticket::create($param);
+
+        if($ticket) {
+            return redirect(route('admin.ticket.index'))->with('success', 'Berhasil menambahkan ticket baru!');
+        }
+        return redirect(route('admin.ticket.index'))->with('failed', 'Gagal menambahkan ticket baru!');
     }
 
     /**

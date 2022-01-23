@@ -15,10 +15,16 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::with('assign', 'user')->orderBy('title', 'ASC')->get();
-        $this->data['tickets'] = $tickets;
+        $tickets = Ticket::with('assign', 'user', 'project');
+        if($request->project) {
+            $tickets->where('project_id', $request->project);
+        }
+        $projects = Project::orderBy('name', 'asc')->get();
+        $this->data['tickets'] = $tickets->orderBy('title', 'ASC')->get();
+        $this->data['projects'] = $projects;
+        $this->data['project_id'] = $request->project ?? '';
         return view('admin/ticket/index', $this->data);
     }
 

@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Developer;
+use App\Models\Client;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -45,5 +48,9 @@ class User extends Authenticatable
 
     public function developer() {
         return $this->hasOne(Developer::class, 'user_id', 'id');
+    }
+
+    public function client() {
+        return $this->hasOne(Client::class, 'user_id', 'id');
     }
 }

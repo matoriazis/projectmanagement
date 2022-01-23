@@ -6,6 +6,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +41,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/client/create', [ClientController::class, 'create'])->name('admin.client.editor');
         Route::post('/client/create', [ClientController::class, 'store'])->name('admin.client.editor.post');
         Route::get('/client/delete/{id}', [ClientController::class, 'destroy'])->name('admin.client.delete');
+
+        Route::get('/report', [ReportController::class, 'index'])->name('admin.report.index');
+        Route::post('/report', [ReportController::class, 'create'])->name('admin.report.create');
     });
     Route::middleware(['access.client'])->prefix('client')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'client'])->name('client.dashboard');
         Route::get('/my-projects', [ProjectController::class, 'clientProject'])->name('client.project.index');
+        Route::get('/my-projects/detail/{id}', [ProjectController::class, 'clientProjectDetail'])->name('client.project.detail');
         Route::get('/ticket', [ClientController::class, 'ticket'])->name('client.ticket.index');
         Route::get('/developer', [ClientController::class, 'developer'])->name('client.developer.index');
-        Route::get('/report', [ClientController::class, 'report'])->name('client.report.index');
+        Route::get('/report', [ProjectController::class, 'clientReport'])->name('client.project.report');
     });
     Route::middleware(['access.developer'])->group(function() {
         Route::get('/', [DashboardController::class, 'developer'])->name('developer.dashboard');

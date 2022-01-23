@@ -8,9 +8,33 @@
                     <div class="card-header pb-0">
                         <div class="d-flex flex-row justify-content-between">
                             <div>
-                                <h5 class="mb-0">List Tiket</h5>
+                                <form action="{{ route('admin.ticket.index') }}" method="GET">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="form-control-label">Filter Project</label>
+                                                <select name="project" class="form-control">
+                                                    @foreach ($projects as $item)
+                                                        @if (isset($project_id) && $project_id == $item->id)
+                                                            <option selected value="{{ $item->id }}">{{ $item->name }}
+                                                                -
+                                                                {{ $item->status }}</option>
+                                                        @else
+                                                            <option value="{{ $item->id }}">{{ $item->name }} -
+                                                                {{ $item->status }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn bg-gradient-dark btn-md"
+                                                style="margin-top: 31px;">Lihat</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <a href="{{ route('admin.ticket.editor') }}" class="btn bg-gradient-primary btn-sm mb-0"
+                            <a style="max-height: 45px; margin-top: 31px;" href="{{ route('admin.ticket.editor') }}" class="btn bg-gradient-primary btn-md mb-0"
                                 type="button">+&nbsp; New Tiket</a>
                         </div>
                     </div>
@@ -22,6 +46,7 @@
                                         <th>No</th>
                                         <th>Nama Tiket</th>
                                         <th>Status</th>
+                                        <th>Project</th>
                                         <th>Di Assign Oleh</th>
                                         <th>Di Buat Oleh</th>
                                         <th>Aksi</th>
@@ -32,10 +57,13 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->title }}</td>
                                                 <td>{{ $item->status }}</td>
+                                                <td>{{ $item->project->name }}</td>
                                                 @if ($item->assign)
-                                                <td>{{$item->assign->name}}</td>
+                                                    <td>{{ $item->assign->fullname }}</td>
                                                 @else
-                                                <td><p style="font-size: 11px">Belum ada yang mengambil tiket</p></td>
+                                                    <td>
+                                                        <p style="font-size: 11px">Belum ada yang mengambil tiket</p>
+                                                    </td>
                                                 @endif
                                                 <td>{{ $item->user->name }}</td>
                                                 <td>

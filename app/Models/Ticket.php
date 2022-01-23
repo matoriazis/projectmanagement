@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Developer;
+use App\Models\Project;
 
 class Ticket extends Model
 {
@@ -17,10 +19,14 @@ class Ticket extends Model
     protected $guarded = ['id'];
 
     public function assign() {
-        return $this->belongsTo(User::class, 'assigned_by');
+        return $this->belongsTo(Developer::class, 'assigned_by');
     }
 
     public function user() {
         return $this->belongsTo(User::class, 'created_id');
+    }
+
+    public function project() {
+        return $this->belongsTo(Project::class, 'project_id');
     }
 }

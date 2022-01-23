@@ -3,31 +3,38 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
+            <h3 class="mb-4">Daftar Project Anda</h3>
+            @include('../../templates/flash')
             <div class="card mb-4">
-                <div class="card-header pb-0">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div>
-                            <h5 class="mb-0">List Tiket</h5>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <div style="padding: 24px;">
                             <table id="datatable1">
                                 <thead>
                                     <th>No</th>
-                                    <th>Nama Tiket</th>
-                                    <th>Developer</th>
+                                    <th>Nama Project</th>
+                                    <th>Tanggal Mulai</th>
+                                    <th>Total Developer</th>
+                                    <th>Tech Stack</th>
                                     <th>Status</th>
+                                    <th>Aksi</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>API Guru</td>
-                                        <td>Rizal Solahudin</td>
-                                        <td>In Progress</td>
-                                    </tr>
+                                    @foreach ($projects as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->start_date}}</td>
+                                            <td>{{$item->developers_count}}</td>
+                                            <td>{{$item->tech_stack}}</td>
+                                            <td>{{$item->status}}</td>
+                                            <td>
+                                                <a href="{{route('client.project.detail', ['id' => $item->id])}}" data-bs-toggle="tooltip" data-bs-original-title="Lihat detail project">
+                                                    <i class="fa fa-eye text-info"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -37,40 +44,5 @@
         </div>
     </div>
 </div>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">API SIMAK</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <h6>Description</h6>
-            <p>Membuat API</p>
-            <ul>
-                <li>Create</li>
-                <li>Update</li>
-                <li>Delete</li>
-            </ul>
-        </div>
-        <form action="#">
-        <div class="col-md-6" style="padding: 24px;">
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Status</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>In Progress</option>
-                    <option>Done</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
+
 @endsection

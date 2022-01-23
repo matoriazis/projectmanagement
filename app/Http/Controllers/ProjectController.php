@@ -137,6 +137,61 @@ class ProjectController extends Controller
 
     // CLIENT SECTION
     public function clientProject(Request $request) {
+        $clientId = \Auth::user()->client->id;
+
+        $projects = Project::where('client_id', $clientId)->withCount('developers')->orderBy('status', 'ASC')->get();
+        $this->data['projects'] = $projects;
         return view('client.project.index', $this->data);
+    }
+
+    public function clientProjectDetail($id, Request $request) {
+        $project = Project::find($id);
+        $clientId = \Auth::user()->client->id;
+
+        if($project) {
+            if($project->client_id == $clientId) {
+                $developers = \DB::select(\DB::raw("SELECT d.id, d.fullname, d.email, d.position 
+                from projects p 
+                join project_developers pd on p.id = pd.project_id
+                join developers d on pd.developer_id = d.id
+                where p.id = ?"), [$id]);
+
+                $tickets = Ticket::with('assign')->where('project_id', $id)->orderBy('status', 'asc')->get();
+
+                $this->data['project'] = $project;
+                $this->data['developers'] = $developers;
+                $this->data['tickets'] = $tickets;
+                // return $this->data;
+                return view('client.project.detail', $this->data);
+            }
+        }
+
+        return redirect(route('client.project.index'))->with('failed', 'Project tidak ditemukan!');
+    }
+
+    public function clientReport(Request $request) {
+        $clientId = \Auth::user()->client->id;
+
+        $filter = '';
+        if(isset($request->project)) {
+            $filter = 'and p.id = ' . $request->project;
+        }
+        $sql = "SELECT 
+                    d.id, d.fullname as dev_name,
+                    p.name,
+                    sum((select count(t.id) from tickets t where t.assigned_by = d.id and t.project_id = p.id and t.status = 'Selesai')) as ticket_done,
+                    sum((select count(t.id) from tickets t where t.assigned_by = d.id and t.project_id = p.id and t.status = 'Sedang Dikerjakan')) as ticket_progress
+                from project_developers pd join projects p on p.id = pd.project_id
+                join developers d on d.id = pd.developer_id
+                where p.client_id = ?
+                ".$filter."
+                GROUP BY d.id, d.fullname, p.name";
+
+        $project = \DB::select(\DB::raw($sql), [$clientId]);
+        $clientProject = Project::where('client_id', $clientId)->orderBy('name', 'asc')->get();
+        $this->data['report_data'] = $project;
+        $this->data['projects'] = $clientProject;
+        $this->data['project_id'] = $request->project ?? '';
+        return view('client/report/index', $this->data);
     }
 }

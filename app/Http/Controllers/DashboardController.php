@@ -24,7 +24,14 @@ class DashboardController extends Controller
 
     public function client(Request $request) {
         //View dashboard client
-        return view('client/index');
+        $cId = \Auth::user()->client->id;
+
+        $this->data['counter'] = [
+            'active' => Project::where('client_id', $cId)->where('status', 'Aktif')->count(),
+            'done' => Project::where('client_id', $cId)->where('status', 'Selesai')->count(),
+            'total' => Project::where('client_id', $cId)->count(),
+        ];
+        return view('client/index', $this->data);
     }
 
     public function developer(Request $request) {

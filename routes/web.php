@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/project/create', [ProjectController::class, 'create'])->name('admin.project.editor');
         Route::post('/project/create', [ProjectController::class, 'store'])->name('admin.project.editor.create');
         Route::get('/project/update-status/{id}', [ProjectController::class, 'markAsDone'])->name('admin.project.status.update');
+        Route::post('/project/assign-dev', [ProjectController::class, 'assignDeveloper'])->name('admin.project.assign.dev.store');
+        Route::get('/project/remove-dev', [ProjectController::class, 'removeAssignedDeveloper'])->name('admin.project.remove.dev');
 
         Route::get('/developer', [DeveloperController::class, 'index'])->name('admin.developer.index');
         Route::get('/developer/create', [DeveloperController::class, 'create'])->name('admin.developer.editor');
@@ -47,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['access.developer'])->group(function() {
         Route::get('/', [DashboardController::class, 'developer'])->name('developer.dashboard');
-        Route::get('/ticket', [DeveloperController::class, 'ticket'])->name('developer.ticket.index');
+        Route::get('/my-project', [DeveloperController::class, 'ticket'])->name('developer.ticket.index');
         Route::get('/history', [DeveloperController::class, 'history'])->name('developer.history.index');
     });
 });

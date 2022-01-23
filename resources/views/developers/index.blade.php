@@ -118,7 +118,7 @@
                 </div>
             </div>
         @empty
-
+            <p style="text-align: center;" colspan="3">Anda belum belum di assign ke project manapun</p>
         @endforelse
     </div>
 @endsection

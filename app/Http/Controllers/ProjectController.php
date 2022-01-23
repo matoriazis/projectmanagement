@@ -134,4 +134,9 @@ class ProjectController extends Controller
         $this->data['projects'] = $pd;
         return view('developers/history/index', $this->data);
     }
+
+    // CLIENT SECTION
+    public function clientProject(Request $request) {
+        return view('client.project.index', $this->data);
+    }
 }

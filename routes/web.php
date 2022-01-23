@@ -49,8 +49,11 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['access.developer'])->group(function() {
         Route::get('/', [DashboardController::class, 'developer'])->name('developer.dashboard');
-        Route::get('/my-project', [DeveloperController::class, 'ticket'])->name('developer.ticket.index');
-        Route::get('/history', [DeveloperController::class, 'history'])->name('developer.history.index');
+        Route::get('/my-project', [ProjectController::class, 'developerProject'])->name('developer.project');
+        Route::get('/my-project/detail/{id}', [ProjectController::class, 'developerProjectDetail'])->name('developer.project.detail');
+        Route::get('/assign-ticket', [TicketController::class, 'assignTicket'])->name('developer.ticket.assign');
+        Route::get('/mark-as-done', [TicketController::class, 'markAsDone'])->name('developer.ticket.assign.change');
+        Route::get('/history', [ProjectController::class, 'developerHistory'])->name('developer.history.index');
     });
 });
 

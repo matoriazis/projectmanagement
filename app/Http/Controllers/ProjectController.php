@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Models\Developer;
 use App\Models\ProjectDeveloper;
+use App\Models\Ticket;
 
 class ProjectController extends Controller
 {
@@ -82,8 +83,55 @@ class ProjectController extends Controller
         return redirect(route('admin.project.index'))->with('failed', 'Gagal mengeluarkan developer dari tim, silahkan coba lagi!');
     }
 
-    public function update(Request $request, $id)
+    // DEVELOPER SECTION
+    public function developerProject(Request $request)
     {
-        //
+        $dev = \Auth::user()->developer;
+
+        if($dev) {
+            $pd = ProjectDeveloper::with('project.client')->where('developer_id', $dev->id)->get();
+            $this->data['projects'] = $pd;
+            return view('developers/project/index', $this->data);
+        }
+        return redirect(route('developer.index'))->with('failed', 'Gagal mengeluarkan developer dari tim, silahkan coba lagi!');
+    }
+    
+    public function developerProjectDetail($id, Request $request) {
+        $project = Project::find($id);
+        
+        if($project) {
+            $devId = \Auth::user()->developer->id;
+            $pd = ProjectDeveloper::where('developer_id', $devId)->where('project_id', $id)->first();
+
+            if($pd) {
+                $ticketTodo = Ticket::where('project_id', $id)->where('assigned_by', '!=', $devId)
+                                    ->orWhere('project_id', $id)->where('assigned_by', null)->get();
+                $myTickets = Ticket::where('project_id', $id)->where('assigned_by', $devId)->get();
+                
+
+                $this->data['todo_tickets'] = $ticketTodo;
+                $this->data['my_tickets'] = $myTickets;
+                $this->data['project'] = $project;
+
+                return view('developers.project.detail', $this->data);
+            }
+            
+            return redirect(route('developer.project'))->with('failed', 'Anda tidak memiliki akses!');
+        }
+        return redirect(route('developer.project'))->with('failed', 'Project tidak ditemukan!');
+    }
+
+    public function developerHistory()
+    {
+        $devId = \Auth::user()->developer->id;
+
+        $pd = \DB::select(\DB::raw("SELECT p.*, pd.developer_id 
+        from projects p 
+        join project_developers pd on p.id = pd.project_id
+        where p.status = ?
+        and pd.developer_id = ?"), ['Selesai', $devId]);
+
+        $this->data['projects'] = $pd;
+        return view('developers/history/index', $this->data);
     }
 }

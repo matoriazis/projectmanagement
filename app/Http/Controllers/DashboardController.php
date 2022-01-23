@@ -29,6 +29,37 @@ class DashboardController extends Controller
 
     public function developer(Request $request) {
         //View dashboard developer
-        return view('developers/index');
+        $devId = \Auth::user()->developer->id;
+
+        $pd = \DB::select(\DB::raw("SELECT p.*, pd.developer_id 
+        from projects p 
+        join project_developers pd on p.id = pd.project_id
+        where p.status = ?
+        and pd.developer_id = ?"), ['Aktif', $devId]);
+
+
+        $data = [];
+
+        if(count($pd) > 0) {
+            foreach($pd as $item) {
+                $temp = [
+                    'project_name' => $item->name
+                ];
+
+                $temp['counter'] = [
+                    'todo' => Ticket::where('project_id', $item->id)->where('status', Ticket::BELUMDIKERJAKAN)->count(),
+                    'in_progress' => Ticket::where('project_id', $item->id)->where('assigned_by', $devId)->where('status', Ticket::DIKERJAKAN)->count(),
+                    'done' => Ticket::where('project_id', $item->id)->where('assigned_by', $devId)->where('status', Ticket::SELESAI)->count(),
+                ];
+
+                $temp['my_inprogress_ticket'] = Ticket::where('project_id', $item->id)
+                                                        ->where('assigned_by', $devId)->where('status', Ticket::DIKERJAKAN)->get();
+
+                $data[] = $temp;
+            }
+        }
+
+        $this->data['dashboard_data'] = $data;
+        return view('developers/index', $this->data);
     }
 }

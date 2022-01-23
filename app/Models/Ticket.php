@@ -10,6 +10,10 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    public const BELUMDIKERJAKAN = 'Belum Dikerjakan';
+    public const DIKERJAKAN = 'Sedang Dikerjakan';
+    public const SELESAI = 'Selesai';
+
     protected $guarded = ['id'];
 
     public function assign() {

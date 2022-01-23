@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Project;
 use App\Models\Developer;
+use \Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -51,39 +52,47 @@ class TicketController extends Controller
         }
         return redirect(route('admin.ticket.index'))->with('failed', 'Gagal menambahkan ticket baru!');
     }
-
+    
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Role Developer.
      */
-    public function show($id)
-    {
-        //
+    public function assignTicket(Request $request) {
+        $ticket = Ticket::find($request->id);
+        
+        if($ticket) {
+            if($ticket->assigned_by == null) {
+                $devId = \Auth::user()->developer->id;
+                $ticket->status = Ticket::DIKERJAKAN;
+                $ticket->assigned_by = $devId;
+                $ticket->assigned_date = Carbon::now()->format('Y-m-d');
+                
+                if($ticket->save()){
+                    return redirect(route('developer.project.detail', ['id' => $ticket->project_id]))->with('success', 'Berhasil mengambil tiket!');
+                }
+                return redirect(route('developer.project.detail', ['id' => $ticket->project_id]))->with('failed', 'Gagal mengambil ticket, silahkan coba lagi!');
+            }
+            return redirect(route('developer.project.detail', ['id' => $ticket->project_id]))->with('failed', 'Gagal mengambil ticket, tiket sudah diambil oleh developer lain!');
+        }
+        return redirect()->back()->with('failed', 'Gagal mengambil tiket, tiket tidak ditemukan!');
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Role Developer.
      */
-    public function edit($id)
-    {
-        //
-    }
+    public function markAsDone(Request $request) {
+        $ticket = Ticket::find($request->id);
+        
+        if($ticket) {
+            $ticket->ticket_done_at = Carbon::now()->format('Y-m-d');
+            $ticket->status = Ticket::SELESAI;
+            if($ticket->save()){
+                // return redirect(route('developer.project.detail', ['id' => $ticket->project_id]))->with('success', 'Berhasil mengubah status tiket menjadi selesai!');
+                return redirect()->back()->with('success', 'Berhasil mengubah status tiket menjadi selesai!');
+            }
+            return redirect(route('developer.project.detail', ['id' => $ticket->project_id]))->with('failed', 'Gagal mengubah status tiket menjadi selesai, silahkan coba lagi!');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return redirect()->back()->with('failed', 'Gagal mengambil tiket, tiket tidak ditemukan!');
     }
 
     /**

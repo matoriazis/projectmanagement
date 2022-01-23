@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="user.phone" class="form-control-label">Email</label>
+                                <label for="user.phone" class="form-control-label">Password</label>
                                 <input required class="form-control" type="password" name="password" placeholder="************">
                             </div>
                         </div>
